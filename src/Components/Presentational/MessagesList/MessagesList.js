@@ -1,10 +1,12 @@
 import React from 'react';
-import MessageItemPropTypes from './MessagesListPropTypes';
+import MessageListPropTypes from './MessagesListPropTypes';
+import MessageItem from '../MessageItem/MessageItem';
 
 const MessagesList = (props)=>{
     const MessageItems = props.messages.map(
         (item,index)=>{
-            <MessageItem key={index} text={item.text} author={item.author} time={item.time}/>
+            console.log(item);
+            return <MessageItem key={index} text={item.text} author={item.author} time={item.time}/>
         }
     );
     return (
@@ -14,6 +16,6 @@ const MessagesList = (props)=>{
     )
 }
 
-MessagesList.propTypes = MessageItemPropTypes;
+MessagesList.propTypes = MessageListPropTypes;
 
 export default MessagesList;
