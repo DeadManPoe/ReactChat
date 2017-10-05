@@ -12,7 +12,7 @@ class MessageSend extends React.Component {
     render(){
         return (
             <div>
-                <input type='text' onChange={this.setMessage.bind(this)}/>
+                <input type='text' value={this.message} onChange={this.setMessage.bind(this)}/>
                 <button onClick={this.sendMessage.bind(this)}>Send</button>
             </div>
         )
@@ -24,6 +24,7 @@ class MessageSend extends React.Component {
     }
     sendMessage(){
         this.props.onMessageSend(this.state.message)
+        this.setState({message : ''})
     }
 }
 MessageSend.propTypes = MessageSendPropTypes;

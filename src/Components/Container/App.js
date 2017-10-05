@@ -24,8 +24,16 @@ class App extends React.Component {
   }
   onNewMessage(message){
     this.setState((prevState)=>{
+      const message_ = JSON.parse(message.data);
+      const msg_rooms = prevState.rooms.map((room)=>{
+        if (room.id === message_.room && prevState.current_room !== room.id){
+          room.messages_count += 1;
+        }
+        return room;
+      })
       return {
-        current_messages : prevState.current_messages.concat([JSON.parse(message.data)])
+        rooms : msg_rooms,
+        current_messages : prevState.current_messages.concat([message_])
       }
     })
   }
@@ -52,10 +60,19 @@ class App extends React.Component {
     })
   }
   onRoomClick(id){
-    this.setState({
-      current_room : id,
-      need_render_messages : true
-    })
+    this.setState((prevState)=>{
+      const rooms = prevState.rooms.map((room)=>{
+        if (room.id === id){
+          room.messages_count = 0;
+        }
+        return room;
+      })
+      return {
+        current_room : id,
+        need_render_messages : true,
+        rooms : rooms
+      }
+    });
   }
   
   render() {
